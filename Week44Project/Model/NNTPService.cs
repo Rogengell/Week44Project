@@ -23,11 +23,20 @@ namespace Week44Project.Model
             reader = null;
         }
 
-        public void CloseConnection() 
-        { 
+        public void CloseConnection()
+        {
+            if (socket != null) 
+            { 
             socket.Close();
-            ns.Close();
-            reader.Close();
+            }
+            if (ns != null)
+            {
+                ns.Close();
+            }
+            if (reader != null)
+            {
+                reader.Close();
+            }
         }
 
         public void ConnectNTTP()
@@ -58,8 +67,8 @@ namespace Week44Project.Model
         public string LoginToSever(string userName, string pass)
         {
             string loginConfirm = "Login Failed";
-            byte[] name = Encoding.UTF8.GetBytes("AUTHINFO USER "+userName);
-            byte[] password = Encoding.UTF8.GetBytes("AUTHINFO PASS "+pass);
+            byte[] name = Encoding.UTF8.GetBytes("AUTHINFO USER "+userName+"\n");
+            byte[] password = Encoding.UTF8.GetBytes("AUTHINFO PASS "+pass + "\n");
             string returnCheck = "";
             try
             {
@@ -77,9 +86,6 @@ namespace Week44Project.Model
                         return loginConfirm;
                     }
                 }
-
-                CloseConnection();
-                ConnectNTTP();
             }
             catch (Exception e)
             {

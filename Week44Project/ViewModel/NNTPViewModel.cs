@@ -47,10 +47,11 @@ namespace Week44Project.ViewModel
 
         public void Login(object parameter)
         {
+            Service.CloseConnection();
             Service.ConnectNTTP();
             if (Service.connectConfirm == true)
             {
-                ConnectStatus = Service.LoginToSever(name,Pass);
+                ConnectStatus = Service.LoginToSever(name, Pass);
             }
             else
             {
