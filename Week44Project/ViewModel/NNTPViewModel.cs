@@ -72,6 +72,17 @@ namespace Week44Project.ViewModel
             if (Service.connectConfirm == true)
             {
                 ConnectStatus = Service.LoginToSever(name, Pass);
+
+                List<string> list = Service.getGroups();
+
+                if (list.Count == 0)
+                {
+                    ConnectStatus = "Groups not found on sever";
+                }
+                else 
+                {
+                    GroupeList = new ObservableCollection<string>(list);
+                }
             }
             else
             {

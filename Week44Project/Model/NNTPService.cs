@@ -4,7 +4,9 @@ using System.IO;
 using System.Linq;
 using System.Net.Sockets;
 using System.Text;
+using System.Text.RegularExpressions;
 using System.Threading.Tasks;
+using static System.Net.Mime.MediaTypeNames;
 
 namespace Week44Project.Model
 {
@@ -94,6 +96,35 @@ namespace Week44Project.Model
             }
 
             return loginConfirm;
+        }
+
+        public List<string> getGroups()
+        {
+            ns.Flush();
+            List<string> groups = new List<string>();
+            byte[] group = Encoding.UTF8.GetBytes("LIST" + "\n");
+            try
+            {
+                ns.Write(group, 0, group.Length);
+                bool flag = true;
+                while (flag) {
+                    string newsGroups = reader.ReadLine();
+                    Console.WriteLine(newsGroups);
+                    if (newsGroups.Equals("."))
+                    {
+                        flag = false;
+                        break;
+                    }
+                    string[] newsGroupsList = Regex.Split(newsGroups, @"\s+", RegexOptions.IgnorePatternWhitespace);
+                    groups.Add(newsGroupsList[0]);
+                }
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine(e.Message);
+            }
+
+            return groups;
         }
     }
 }

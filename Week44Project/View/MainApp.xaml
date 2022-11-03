@@ -30,7 +30,7 @@
             <TextBlock Text="Password" HorizontalAlignment="Center" Margin="10"></TextBlock>
             <TextBox Text="{Binding Pass,UpdateSourceTrigger=PropertyChanged}" Margin="10"></TextBox>
             <Button Content="Login" Width="50" Height="20" Command="{Binding login}"></Button>
-            <TextBlock Text="{Binding ConnectStatus}" Margin="10" HorizontalAlignment="Center"></TextBlock>
+            <TextBlock Text="{Binding ConnectStatus,UpdateSourceTrigger=PropertyChanged}" Margin="10" HorizontalAlignment="Center"></TextBlock>
         </StackPanel>
 
         <StackPanel Grid.Row="0" Grid.Column="1">
@@ -40,7 +40,7 @@
                     <SolidColorBrush Color="Black"></SolidColorBrush>
                 </Rectangle.Fill>
             </Rectangle>
-            <TextBlock x:Name="artikelBox" Height="500" Text="hello" FontSize="17" Margin="10"></TextBlock>
+            <TextBlock x:Name="artikelBox" Height="500" TextWrapping="Wrap" TextTrimming="WordEllipsis" Text="hello" FontSize="17" Margin="10"></TextBlock>
         </StackPanel>
         
         <StackPanel Grid.Row="0" Grid.Column="2">
