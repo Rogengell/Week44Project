@@ -22,6 +22,14 @@ namespace Week44Project.Model
             ns = null;
             reader = null;
         }
+
+        public void CloseConnection() 
+        { 
+            socket.Close();
+            ns.Close();
+            reader.Close();
+        }
+
         public void ConnectNTTP()
         {
             String serverName = "news.dotsrc.org";
@@ -35,7 +43,9 @@ namespace Week44Project.Model
 
                 reader = new StreamReader(ns, Encoding.UTF8);
 
-                Console.WriteLine(reader.ReadLine());
+                string test = reader.ReadLine();
+                Console.WriteLine(test);
+
                 ns.Flush();
                 connectConfirm = true;
 
@@ -44,17 +54,42 @@ namespace Week44Project.Model
             {
                 Console.WriteLine(e.Message);
             }
-            finally
-            {
-                socket.Close();
-                ns.Close();
-                reader.Close();
-            }   
         }
 
-        public void LoginToSever(string userName,string pass) 
-        { 
-            
+        public string LoginToSever(string userName, string pass)
+        {
+            string loginConfirm = "Login Failed";
+            byte[] name = Encoding.UTF8.GetBytes("AUTHINFO USER "+userName);
+            byte[] password = Encoding.UTF8.GetBytes("AUTHINFO PASS "+pass);
+
+            try
+            {
+                string returnCheck = "";
+                ns.Write(name, 0, name.Length);
+                ns.Flush();
+                Console.WriteLine( reader.ReadLine());
+
+                if (returnCheck.StartsWith("381"))
+                {
+                    ns.Flush();
+                    ns.Write(password, 0, password.Length);
+                    returnCheck = reader.ReadLine();
+                    if (returnCheck.StartsWith("250") || returnCheck.StartsWith("281"))
+                    {
+                        loginConfirm = "Login Accepted";
+                        return loginConfirm;
+                    }
+                }
+
+                CloseConnection();
+                ConnectNTTP();
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine(e.Message);
+            }
+
+            return loginConfirm;
         }
     }
 }

@@ -50,18 +50,13 @@ namespace Week44Project.ViewModel
             Service.ConnectNTTP();
             if (Service.connectConfirm == true)
             {
-                
+                ConnectStatus = Service.LoginToSever(name,Pass);
             }
             else
             {
                 ConnectStatus = "Sever Ready";
             }
         }
-
-        
-
-
-
 
     }
 }
