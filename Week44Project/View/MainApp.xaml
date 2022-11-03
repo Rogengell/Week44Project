@@ -19,7 +19,11 @@
         <Grid.RowDefinitions>
             <RowDefinition Height="*"></RowDefinition>
         </Grid.RowDefinitions>
-
+        
+        <Border BorderBrush="Black" BorderThickness="5" Grid.Column="0"></Border>
+        <Border BorderBrush="Black" BorderThickness="5" Grid.Column="1"></Border>
+        <Border BorderBrush="Black" BorderThickness="5" Grid.Column="2"></Border>
+        
         <StackPanel Grid.Row="0" Grid.Column="0">
             <TextBlock Text="User Name" HorizontalAlignment="Center" Margin="10"></TextBlock>
             <TextBox Text="{Binding Name,UpdateSourceTrigger=PropertyChanged}" Margin="10"></TextBox>
@@ -30,11 +34,43 @@
         </StackPanel>
 
         <StackPanel Grid.Row="0" Grid.Column="1">
-            
+            <TextBlock Text="Current Artikel" HorizontalAlignment="Center" Height="30" FontSize="20" Margin="10"></TextBlock>
+            <Rectangle Margin="1" Height="3">
+                <Rectangle.Fill>
+                    <SolidColorBrush Color="Black"></SolidColorBrush>
+                </Rectangle.Fill>
+            </Rectangle>
+            <TextBlock x:Name="artikelBox" Height="500" Text="hello" FontSize="17" Margin="10"></TextBlock>
         </StackPanel>
-
+        
         <StackPanel Grid.Row="0" Grid.Column="2">
-
+            <ListView Margin="5,5,5,0"
+                  Height="270"
+                  ScrollViewer.HorizontalScrollBarVisibility="Disabled"
+                  ItemsSource="{Binding GroupeList}">
+                <ListView.View>
+                    <GridView>
+                        <GridViewColumn 
+                            Width="325"
+                            Header="Groups" 
+                        ></GridViewColumn>
+                    </GridView>
+                </ListView.View>
+            </ListView>
+            
+            <ListView Margin="5,0,5,5"
+                  Height="270"
+                  ScrollViewer.HorizontalScrollBarVisibility="Disabled"
+                  ItemsSource="{Binding ArtikelList}">
+                <ListView.View>
+                    <GridView>
+                        <GridViewColumn 
+                            Width="325"
+                            Header="Artikel" 
+                        ></GridViewColumn>
+                    </GridView>
+                </ListView.View>
+            </ListView>
         </StackPanel>
 
     </Grid>

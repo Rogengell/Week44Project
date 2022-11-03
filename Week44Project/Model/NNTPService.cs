@@ -74,12 +74,13 @@ namespace Week44Project.Model
             {
                 ns.Write(name, 0, name.Length);
 
-                returnCheck = reader.ReadLine(); 
-
+                returnCheck = reader.ReadLine();
+                Console.WriteLine(returnCheck);
                 if (returnCheck.StartsWith("381"))
                 {
                     ns.Write(password, 0, password.Length);
                     returnCheck = reader.ReadLine();
+                    Console.WriteLine(returnCheck);
                     if (returnCheck.StartsWith("250") || returnCheck.StartsWith("281"))
                     {
                         loginConfirm = "Login Accepted";

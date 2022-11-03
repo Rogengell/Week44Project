@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Linq;
 using System.Net.Sockets;
 using System.Text;
@@ -26,6 +27,23 @@ namespace Week44Project.ViewModel
             set { pass = value; PropertyIsChanged(); }
         }
 
+        private ObservableCollection<string> groupeList = new ObservableCollection<string>();
+
+        public ObservableCollection<string> GroupeList
+        {
+            get { return groupeList; }
+            set { groupeList = value; PropertyIsChanged(); }
+        }
+
+        private ObservableCollection<string> artikelList = new ObservableCollection<string>();
+
+        public ObservableCollection<string> ArtikelList
+        {
+            get { return artikelList; }
+            set { artikelList = value;PropertyIsChanged(); }
+        }
+
+
         private string connectStatus;
 
         public string ConnectStatus
@@ -43,6 +61,8 @@ namespace Week44Project.ViewModel
         {
             this.Service = new NNTPService();
             login = new AddCommand(Login);
+            Name = "niel4921@easv365.dk";
+            Pass = "cd2bc4";
         }
 
         public void Login(object parameter)
