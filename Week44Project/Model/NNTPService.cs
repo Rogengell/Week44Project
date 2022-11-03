@@ -46,7 +46,6 @@ namespace Week44Project.Model
                 string test = reader.ReadLine();
                 Console.WriteLine(test);
 
-                ns.Flush();
                 connectConfirm = true;
 
             }
@@ -61,17 +60,15 @@ namespace Week44Project.Model
             string loginConfirm = "Login Failed";
             byte[] name = Encoding.UTF8.GetBytes("AUTHINFO USER "+userName);
             byte[] password = Encoding.UTF8.GetBytes("AUTHINFO PASS "+pass);
-
+            string returnCheck = "";
             try
             {
-                string returnCheck = "";
                 ns.Write(name, 0, name.Length);
-                ns.Flush();
-                Console.WriteLine( reader.ReadLine());
+
+                returnCheck = reader.ReadLine(); 
 
                 if (returnCheck.StartsWith("381"))
                 {
-                    ns.Flush();
                     ns.Write(password, 0, password.Length);
                     returnCheck = reader.ReadLine();
                     if (returnCheck.StartsWith("250") || returnCheck.StartsWith("281"))
