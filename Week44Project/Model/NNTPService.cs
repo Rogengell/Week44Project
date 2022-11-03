@@ -51,5 +51,10 @@ namespace Week44Project.Model
                 reader.Close();
             }   
         }
+
+        public void LoginToSever(string userName,string pass) 
+        { 
+            
+        }
     }
 }

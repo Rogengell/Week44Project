@@ -3,14 +3,15 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows.Input;
 
 namespace Week44Project.ViewModel
 {
-    internal class AddCommands
+    internal class AddCommand : ICommand
     {
-        public event EventHandler? CanExecuteChanged;
+        public event EventHandler CanExecuteChanged;
 
-        public void RaisCanExecuteChanged() => this.CanExecuteChanged?.Invoke(this, EventArgs.Empty);
+        public void RaisCanExecuteChanged() => this.CanExecuteChanged.Invoke(this, EventArgs.Empty);
         public bool CanExecute(object parameter)
         {
             return true;
@@ -22,7 +23,7 @@ namespace Week44Project.ViewModel
         }
 
         private Action<Object> actionToInvoke = null;
-        public AddCommands(Action<Object> actionToInvoke)
+        public AddCommand(Action<Object> actionToInvoke)
         {
             this.actionToInvoke = actionToInvoke;
         }

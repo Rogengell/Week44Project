@@ -35,22 +35,22 @@ namespace Week44Project.ViewModel
         }
 
 
-        public AddCommands login { get; set; }
+        public AddCommand login { get; set; }
 
         private NNTPService Service;
 
         public NNTPViewModel()
         {
             this.Service = new NNTPService();
-            login = new AddCommands(Login);
+            login = new AddCommand(Login);
         }
 
         public void Login(object parameter)
         {
             Service.ConnectNTTP();
-            if (Service.connectConfirm)
+            if (Service.connectConfirm == true)
             {
-                ConnectStatus = "Server Ready";
+                
             }
             else
             {
