@@ -100,16 +100,15 @@ namespace Week44Project.Model
 
         public List<string> getGroups()
         {
-            ns.Flush();
             List<string> groups = new List<string>();
             byte[] group = Encoding.UTF8.GetBytes("LIST" + "\n");
             try
             {
                 ns.Write(group, 0, group.Length);
+                reader.ReadLine();
                 bool flag = true;
                 while (flag) {
                     string newsGroups = reader.ReadLine();
-                    Console.WriteLine(newsGroups);
                     if (newsGroups.Equals("."))
                     {
                         flag = false;
@@ -125,6 +124,65 @@ namespace Week44Project.Model
             }
 
             return groups;
+        }
+
+        public List<ArticlesHolder> getArticles(string newsGroups) 
+        {
+            List<string> articlesNumber = new List<string>();
+            List<string> articles = new List<string>();
+            List<ArticlesHolder> retunrList = new List<ArticlesHolder>();
+            
+            byte[] group = Encoding.UTF8.GetBytes("LISTGROUP "+ newsGroups + "\n");
+            
+            try
+            {
+                ns.Write(group, 0, group.Length);
+                string confirm = reader.ReadLine();
+                if (confirm.StartsWith("211")) 
+                {
+                    bool flag1 = true;
+                    while (flag1) 
+                    {
+                        string number = reader.ReadLine();
+                        if (number.StartsWith("."))
+                        {
+                            flag1=false;
+                            break;
+                        }
+                        articlesNumber.Add(number);
+                    }
+
+                    foreach (string s in articlesNumber)
+                    {
+                        byte[] HEAD = Encoding.UTF8.GetBytes("HEAD " + s + "\n");
+                        ns.Write(HEAD, 0, HEAD.Length);
+                        bool flag2 = true;
+                        while (flag2)
+                        { 
+                            string subject = reader.ReadLine();
+
+                            if (subject.StartsWith("."))
+                            {
+                                flag2 = false;
+                            }
+
+                            if (subject.StartsWith("Subject:") || subject.StartsWith("subject:"))
+                            {
+                                string name = Regex.Replace(subject, "Subject: | subject:", "");
+                                name.TrimStart();
+                                articles.Add(name);
+                                retunrList.Add(new ArticlesHolder(s,name));
+                            }
+                        }
+                    }
+                }
+            }
+            catch(Exception e)
+            {
+                Console.WriteLine(e.Message);
+            }
+
+            return retunrList;
         }
     }
 }

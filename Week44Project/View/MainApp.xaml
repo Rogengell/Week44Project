@@ -47,6 +47,7 @@
             <ListView Margin="5,5,5,0"
                   Height="270"
                   ScrollViewer.HorizontalScrollBarVisibility="Disabled"
+                  SelectedItem="{Binding Articles}"
                   ItemsSource="{Binding GroupeList}">
                 <ListView.View>
                     <GridView>
@@ -57,17 +58,19 @@
                     </GridView>
                 </ListView.View>
             </ListView>
-            
+
             <ListView Margin="5,0,5,5"
                   Height="270"
                   ScrollViewer.HorizontalScrollBarVisibility="Disabled"
-                  ItemsSource="{Binding ArtikelList}">
+                  ItemsSource="{Binding ArtikelList}"
+                  SelectedItem="{Binding Test,UpdateSourceTrigger=PropertyChanged}"    >
                 <ListView.View>
                     <GridView>
                         <GridViewColumn 
                             Width="325"
-                            Header="Artikel" 
-                        ></GridViewColumn>
+                            Header="Artikel"
+                            DisplayMemberBinding="{Binding articles}">
+                        </GridViewColumn>
                     </GridView>
                 </ListView.View>
             </ListView>
