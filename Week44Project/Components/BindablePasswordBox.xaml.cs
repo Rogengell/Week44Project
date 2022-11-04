@@ -20,12 +20,15 @@ namespace Week44Project.Components
     /// </summary>
     public partial class BindablePasswordBox : UserControl
     {
+        // Flog to register change
         private bool _isPasswordChanging;
         
+        // Dependency setop for the property
         public static readonly DependencyProperty PasswordProperty =
             DependencyProperty.Register("Password", typeof(string), typeof(BindablePasswordBox), 
                 new PropertyMetadata(string.Empty, PasswordPropertyChanged));
 
+        // Callback method
         private static void PasswordPropertyChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
         {
             if (d is BindablePasswordBox passwordBox)
@@ -34,6 +37,7 @@ namespace Week44Project.Components
             }
         }
 
+        // Main property that binds to the pass property in NNTPViewModel
         public string Password
         {
             get { return (string)GetValue(PasswordProperty); }
@@ -45,6 +49,7 @@ namespace Week44Project.Components
             InitializeComponent();
         }
 
+        // Updates the main propperty, when sonthing is typed in the passwordbox
         private void PasswordBox_PasswordChanged(object sender, RoutedEventArgs e)
         {
             _isPasswordChanging = true;
@@ -52,6 +57,7 @@ namespace Week44Project.Components
             _isPasswordChanging = false;
         }
 
+        // Gives the passwordBox, the starting string of the property
         private void UpdatePassword()
         {
             if (!_isPasswordChanging)
