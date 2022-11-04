@@ -25,6 +25,7 @@ namespace Week44Project.Model
             reader = null;
         }
 
+        // Closses all conections
         public void CloseConnection()
         {
             if (socket != null) 
@@ -41,6 +42,7 @@ namespace Week44Project.Model
             }
         }
 
+        // Connects to the server
         public void ConnectNTTP()
         {
             String serverName = "news.dotsrc.org";
@@ -66,6 +68,7 @@ namespace Week44Project.Model
             }
         }
 
+        // Writes to sever and veryfie the login
         public string LoginToSever(string userName, string pass)
         {
             string loginConfirm = "Login Failed";
@@ -98,6 +101,7 @@ namespace Week44Project.Model
             return loginConfirm;
         }
 
+        // Writes to the sever and gets the list of news groups
         public List<string> getGroups()
         {
             List<string> groups = new List<string>();
@@ -126,6 +130,7 @@ namespace Week44Project.Model
             return groups;
         }
 
+        // Writes to the sever and gets all article names and id numbers
         public List<ArticlesHolder> getArticlesName(string newsGroups) 
         {
             List<string> articlesNumber = new List<string>();
@@ -186,6 +191,7 @@ namespace Week44Project.Model
             return retunrList;
         }
 
+        // Writes to the sever and gets the actual article
         public string getArticles(string articleNumber) 
         {
             string fullArticle = "";

@@ -12,6 +12,7 @@ namespace Week44Project.ViewModel
 {
     internal class NNTPViewModel : ViewModelBase
     {
+        // Property for user name textbox
         private string name = "";
 
         public string Name
@@ -20,6 +21,7 @@ namespace Week44Project.ViewModel
             set { name = value; PropertyIsChanged(); }
         }
 
+        // Property for password textbox
         private string pass = "";
 
         public string Pass
@@ -28,6 +30,7 @@ namespace Week44Project.ViewModel
             set { pass = value; PropertyIsChanged(); }
         }
 
+        // Property for the actual artikel body
         private string articleBody;
 
         public string ArticleBody
@@ -36,7 +39,7 @@ namespace Week44Project.ViewModel
             set { articleBody = value; PropertyIsChanged(); }
         }
 
-
+        // Property for ListView Group
         private ObservableCollection<string> groupeList = new ObservableCollection<string>();
 
         public ObservableCollection<string> GroupeList
@@ -45,6 +48,7 @@ namespace Week44Project.ViewModel
             set { groupeList = value; PropertyIsChanged(); }
         }
 
+        // Property for ListView Artikel
         private ObservableCollection<ArticlesHolder> artikelList = new ObservableCollection<ArticlesHolder>();
 
         public ObservableCollection<ArticlesHolder> ArtikelList
@@ -53,7 +57,7 @@ namespace Week44Project.ViewModel
             set { artikelList = value;PropertyIsChanged(); }
         }
 
-
+        // Property for status TextBlock
         private string connectStatus;
 
         public string ConnectStatus
@@ -62,6 +66,7 @@ namespace Week44Project.ViewModel
             set { connectStatus = value; PropertyIsChanged(); }
         }
 
+        // Property for Group select item ListView
         private string articles;
 
         public string Articles
@@ -73,6 +78,7 @@ namespace Week44Project.ViewModel
             }
         }
 
+        // Property for Artikel select item ListView
         private ArticlesHolder articleHolder;
 
         public ArticlesHolder ArticleHolder
@@ -87,17 +93,22 @@ namespace Week44Project.ViewModel
         }
 
 
-
+        //command to login
         public AddCommand login { get; set; }
 
+        // global object for the NNTPService
         private NNTPService Service;
 
+        // constrtctor makes a object of the NNTP service and a command for login
         public NNTPViewModel()
         {
             this.Service = new NNTPService();
             login = new AddCommand(Login);
         }
 
+        /**
+         * cassle the connect method and verify the connection is made
+         */
         public void Login(object parameter)
         {
             Service.CloseConnection();
@@ -113,12 +124,18 @@ namespace Week44Project.ViewModel
             getGroupThread();
         }
 
+        // makes a thred to run the getGroup method
         private void getGroupThread()
         {
             Thread thread = new Thread(getGroup);
             thread.Start();
         }
 
+        /*
+         * calles the Service.getGroups method and gets a list
+         * then check it got somting back
+         * and the opdates the coresponding property
+         */
         private void getGroup()
         {
             List<string> list = Service.getGroups();
@@ -133,24 +150,34 @@ namespace Week44Project.ViewModel
             }
         }
 
+        // makes a thred to run the retriveArticlesName method
         private void retriveArticlesNameThread() 
         {
             Thread thread = new Thread(retriveArticlesName);
             thread.Start();
         }
 
+        /*
+         * calles the Service.getArticlesName method and gets a list
+         * and then opdates the property
+         */
         private void retriveArticlesName() 
         {
             List<ArticlesHolder> articels = Service.getArticlesName(Articles);
             ArtikelList = new ObservableCollection<ArticlesHolder>(articels);
         }
 
+        // makes a thred to run the retriveArticles method
         private void retriveArticlesThread() 
         {
             Thread thread = new Thread(retriveArticles);
             thread.Start();
         }
 
+        /*
+        * calles the Service.getArticles method and gets a list
+        * and then opdates the property
+        */
         private void retriveArticles() 
         {
             string articleNumber = ArticleHolder.articlesNumber;
