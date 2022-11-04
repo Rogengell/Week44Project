@@ -96,8 +96,6 @@ namespace Week44Project.ViewModel
         {
             this.Service = new NNTPService();
             login = new AddCommand(Login);
-            Name = "niel4921@easv365.dk";
-            Pass = "cd2bc4";
         }
 
         public void Login(object parameter)
