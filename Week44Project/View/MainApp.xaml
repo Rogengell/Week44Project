@@ -40,7 +40,9 @@
                     <SolidColorBrush Color="Black"></SolidColorBrush>
                 </Rectangle.Fill>
             </Rectangle>
-            <TextBlock x:Name="artikelBox" Height="500" TextWrapping="Wrap" TextTrimming="WordEllipsis" Text="hello" FontSize="17" Margin="10"></TextBlock>
+            <ScrollViewer VerticalScrollBarVisibility="Auto" HorizontalScrollBarVisibility="Disabled" Height="500">
+                <TextBlock x:Name="artikelBox" TextWrapping="Wrap" TextTrimming="WordEllipsis" Text="{Binding ArticleBody}" FontSize="17" Margin="10"></TextBlock>
+            </ScrollViewer>
         </StackPanel>
         
         <StackPanel Grid.Row="0" Grid.Column="2">
@@ -63,7 +65,7 @@
                   Height="270"
                   ScrollViewer.HorizontalScrollBarVisibility="Disabled"
                   ItemsSource="{Binding ArtikelList}"
-                  SelectedItem="{Binding Test,UpdateSourceTrigger=PropertyChanged}"    >
+                  SelectedItem="{Binding ArticleHolder,UpdateSourceTrigger=PropertyChanged}"    >
                 <ListView.View>
                     <GridView>
                         <GridViewColumn 

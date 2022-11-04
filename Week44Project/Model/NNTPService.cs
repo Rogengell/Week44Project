@@ -126,7 +126,7 @@ namespace Week44Project.Model
             return groups;
         }
 
-        public List<ArticlesHolder> getArticles(string newsGroups) 
+        public List<ArticlesHolder> getArticlesName(string newsGroups) 
         {
             List<string> articlesNumber = new List<string>();
             List<string> articles = new List<string>();
@@ -183,6 +183,38 @@ namespace Week44Project.Model
             }
 
             return retunrList;
+        }
+
+        public string getArticles(string articleNumber) 
+        {
+            string fullArticle = "";
+            byte[] commmand = Encoding.UTF8.GetBytes("BODY " + articleNumber + "\n");
+
+            try
+            {
+                ns.Write(commmand, 0, commmand.Length);
+                string confirm = reader.ReadLine();
+                if (confirm.StartsWith("222")) 
+                {
+                    bool flag = true;
+
+                    while (flag)
+                    {
+                        string gottenLine = reader.ReadLine();
+
+                        if (gottenLine.StartsWith(".")) 
+                        {
+                            break;
+                        }
+                        fullArticle += gottenLine+"\n";
+                    }
+                }
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine(e.Message);
+            }
+            return fullArticle;
         }
     }
 }

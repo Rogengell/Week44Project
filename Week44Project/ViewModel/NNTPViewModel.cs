@@ -28,6 +28,15 @@ namespace Week44Project.ViewModel
             set { pass = value; PropertyIsChanged(); }
         }
 
+        private string articleBody;
+
+        public string ArticleBody
+        {
+            get { return articleBody; }
+            set { articleBody = value; PropertyIsChanged(); }
+        }
+
+
         private ObservableCollection<string> groupeList = new ObservableCollection<string>();
 
         public ObservableCollection<string> GroupeList
@@ -60,20 +69,20 @@ namespace Week44Project.ViewModel
             get { return articles; }
             set { articles = value; 
                 PropertyIsChanged();
-                retriveArticlesThread();
+                retriveArticlesNameThread();
             }
         }
 
-        private ArticlesHolder test;
+        private ArticlesHolder articleHolder;
 
-        public ArticlesHolder Test
+        public ArticlesHolder ArticleHolder
         {
-            get { return test; }
+            get { return articleHolder; }
             set
             {
-                test = value;
+                articleHolder = value;
                 PropertyIsChanged();
-                
+                retriveArticlesThread();
             }
         }
 
@@ -126,6 +135,18 @@ namespace Week44Project.ViewModel
             }
         }
 
+        private void retriveArticlesNameThread() 
+        {
+            Thread thread = new Thread(retriveArticlesName);
+            thread.Start();
+        }
+
+        private void retriveArticlesName() 
+        {
+            List<ArticlesHolder> articels = Service.getArticlesName(Articles);
+            ArtikelList = new ObservableCollection<ArticlesHolder>(articels);
+        }
+
         private void retriveArticlesThread() 
         {
             Thread thread = new Thread(retriveArticles);
@@ -134,11 +155,11 @@ namespace Week44Project.ViewModel
 
         private void retriveArticles() 
         {
-            List<ArticlesHolder> articels = Service.getArticles(Articles);
-            ArtikelList = new ObservableCollection<ArticlesHolder>(articels);
+            string articleNumber = ArticleHolder.articlesNumber;
+            string selectedArticle = Service.getArticles(articleNumber);
+            selectedArticle.TrimStart();
+            ArticleBody = selectedArticle;
         }
-
-
 
     }
 }
