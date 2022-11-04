@@ -105,7 +105,7 @@ namespace Week44Project.Model
             try
             {
                 ns.Write(group, 0, group.Length);
-                reader.ReadLine();
+                Console.WriteLine(reader.ReadLine());
                 bool flag = true;
                 while (flag) {
                     string newsGroups = reader.ReadLine();
@@ -138,6 +138,7 @@ namespace Week44Project.Model
             {
                 ns.Write(group, 0, group.Length);
                 string confirm = reader.ReadLine();
+                Console.WriteLine(confirm);
                 if (confirm.StartsWith("211")) 
                 {
                     bool flag1 = true;
@@ -194,6 +195,7 @@ namespace Week44Project.Model
             {
                 ns.Write(commmand, 0, commmand.Length);
                 string confirm = reader.ReadLine();
+                Console.WriteLine(confirm);
                 if (confirm.StartsWith("222")) 
                 {
                     bool flag = true;
