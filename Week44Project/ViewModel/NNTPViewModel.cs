@@ -6,6 +6,8 @@ using System.Net.Sockets;
 using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
+using System.Windows;
+using System.Windows.Controls;
 using Week44Project.Model;
 
 namespace Week44Project.ViewModel
@@ -27,7 +29,8 @@ namespace Week44Project.ViewModel
         public string Pass
         {
             get { return pass; }
-            set { pass = value; PropertyIsChanged(); }
+            set { pass = value; 
+                PropertyIsChanged(); }
         }
 
         // Property for the actual artikel body
